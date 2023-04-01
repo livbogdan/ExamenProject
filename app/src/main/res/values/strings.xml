@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ExamenProject</string>
+
+    <string name="image_content_description">image</string>
+    <string name="lets_get_started_text">Let´s Get Started</string>
+    <string name="intro_text_description">Task Planner</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+
 </resources>
