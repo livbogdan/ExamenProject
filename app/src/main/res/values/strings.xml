@@ -7,4 +7,13 @@
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
 
+    <!--START-->
+    <string name="sign_up_description_text">Enter your name, email id and password, to register with us.</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">E-mail</string>
+    <!--END-->
+
+    <string name="sign_in_description_text">Enter your E-mail and password to log in.</string>
+
 </resources>
