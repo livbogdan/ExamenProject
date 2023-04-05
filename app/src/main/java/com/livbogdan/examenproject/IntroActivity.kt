@@ -27,7 +27,6 @@ class IntroActivity : AppCompatActivity() {
 		val typeFace: Typeface = Typeface.createFromAsset(assets, "Haelous.ttf")
 		headerTextView.typeface = typeFace
 	}
-
 	private fun signUp() {
 
 		val btnSignUp: Button = findViewById(R.id.btn_sign_up_intro)
@@ -35,7 +34,6 @@ class IntroActivity : AppCompatActivity() {
 			startActivity(Intent(this,SignUpActivity::class.java))
 		}
 	}
-
 	private fun signIn() {
 
 		val btnSignIn: Button = findViewById(R.id.btn_sign_in_intro)

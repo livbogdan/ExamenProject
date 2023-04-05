@@ -29,12 +29,13 @@ class SignInActivity : AppCompatActivity() {
 		toolbar.setNavigationOnClickListener {
 			onBackPressed()
 		}
+
 	}
 
 	private fun signInButton(){
 		val btnSignIn: Button = findViewById(R.id.btn_sign_in)
 		btnSignIn.setOnClickListener {
-			startActivity(Intent(this, SignInActivity::class.java))
+			startActivity(Intent(this, IntroActivity::class.java))
 		}
 	}
 }
