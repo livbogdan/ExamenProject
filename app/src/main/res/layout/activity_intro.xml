@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
-    tools:context=".IntroActivity">
+    tools:context=".activitys.IntroActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

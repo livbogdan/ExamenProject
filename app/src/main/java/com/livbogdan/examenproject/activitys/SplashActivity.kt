@@ -1,4 +1,4 @@
-package com.livbogdan.examenproject
+package com.livbogdan.examenproject.activitys
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
+import com.livbogdan.examenproject.R
 
 class SplashActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,8 @@
-package com.livbogdan.examenproject
+package com.livbogdan.examenproject.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.livbogdan.examenproject.R
 
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
