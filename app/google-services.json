@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "500373773177",
+    "project_id": "examprj-88862",
+    "storage_bucket": "examprj-88862.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500373773177:android:dff90ffd568ca7ca056da8",
+        "android_client_info": {
+          "package_name": "com.livbogdan.examenproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500373773177-n06h57i1nddqvtfq7dsgkei8l5etoq83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBid7dDmVAz3GYvHo38CIe9rVksMgMsuq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500373773177-n06h57i1nddqvtfq7dsgkei8l5etoq83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

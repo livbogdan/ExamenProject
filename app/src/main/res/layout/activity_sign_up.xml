@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
-    tools:context=".SignUpActivity">
+    tools:context=".activitys.SignUpActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_sign_up"
@@ -91,7 +91,6 @@
                     android:ems="10"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:text="@string/email"
                     android:textSize="@dimen/et_text_size" />
 
                 <EditText

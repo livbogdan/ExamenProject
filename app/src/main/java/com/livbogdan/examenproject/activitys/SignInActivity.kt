@@ -1,10 +1,11 @@
-package com.livbogdan.examenproject
+package com.livbogdan.examenproject.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
+import com.livbogdan.examenproject.R
 
 class SignInActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
