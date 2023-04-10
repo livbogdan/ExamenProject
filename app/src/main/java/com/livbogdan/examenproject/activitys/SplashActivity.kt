@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
 import com.livbogdan.examenproject.R
+import com.livbogdan.examenproject.firebase.FirestoreClass
 
 class SplashActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +22,21 @@ class SplashActivity : AppCompatActivity() {
 
 		//Move to another activity by 2,5 second
 		val handler = Handler(Looper.getMainLooper())
+		var currentUserID = FirestoreClass().getCurrentUserId()
+
 		val runnable = Runnable{
+
+			//#region Auto Login If Account exist
+			if (currentUserID.isNotEmpty()){
+				startActivity(Intent(this, MainActivity::class.java))
+			}else{
+				startActivity(Intent(this, IntroActivity::class.java))
+			}
+			//#endregion
+
+			/* Always starting IntroActivity
 			startActivity(Intent(this, IntroActivity::class.java))
+			 */
 			finish()
 		}
 		handler.postDelayed(runnable,2500)
