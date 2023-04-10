@@ -68,7 +68,7 @@
                 android:padding="@dimen/card_view_layout_content_padding">
 
                 <EditText
-                    android:id="@+id/et_email"
+                    android:id="@+id/et_email_sign_in"
                     android:layout_width="292dp"
                     android:layout_height="50sp"
                     android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
@@ -77,11 +77,10 @@
                     android:ems="10"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:text="@string/email"
                     android:textSize="@dimen/et_text_size" />
 
                 <EditText
-                    android:id="@+id/et_pass"
+                    android:id="@+id/et_pass_sign_in"
                     android:layout_width="300sp"
                     android:layout_height="50sp"
                     android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
