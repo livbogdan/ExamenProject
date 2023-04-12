@@ -37,12 +37,10 @@ class SignUpActivity : BaseActivity() {
 		}
 	}
 
-	 //MAYBE NEED TO DELETE
 	private fun signUpButton(){
 		val btnSignUp: Button = findViewById(R.id.btn_sign_in)
 		btnSignUp.setOnClickListener {
 			registeredUser()
-			//startActivity(Intent(this, SignUpActivity::class.java))
 		}
 	}
 
