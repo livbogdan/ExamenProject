@@ -4,6 +4,7 @@ import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.widget.TextView
 import android.widget.Toast
@@ -12,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.livbogdan.examenproject.R
 
-@Suppress("DEPRECATION")
+
 open class BaseActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
@@ -45,8 +46,11 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun doubleBackToExit(){
+
+        val handler = Handler(Looper.getMainLooper())
+
         if (doubleBackToExitPressedOnce){
-            super.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             return
         }
 
@@ -57,7 +61,9 @@ open class BaseActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 
-        Handler().postDelayed({doubleBackToExitPressedOnce = false}, 2000)
+        handler.postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
 
     }
 

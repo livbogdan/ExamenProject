@@ -3,13 +3,18 @@ package com.livbogdan.examenproject.activitys
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.livbogdan.examenproject.R
+import com.livbogdan.examenproject.firebase.FirestoreClass
+import com.livbogdan.examenproject.models.User
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +23,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 		setupActionBar()
 
-		val navView: NavigationView =findViewById(R.id.nav_view)
+		val navView: NavigationView = findViewById(R.id.nav_view)
 		navView.setNavigationItemSelectedListener(this)
+
+		FirestoreClass().loadUserData(this)
 	}
 
 	private fun setupActionBar(){
@@ -42,6 +49,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		}
 	}
 
+
 	override fun onBackPressed() {
 		val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
 
@@ -55,6 +63,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 	override fun onNavigationItemSelected(item: MenuItem): Boolean {
 		when(item.itemId) {
 			R.id.nav_my_profile -> {
+				startActivity(Intent(this, MyProfileActivity::class.java))
 				Toast.makeText(this, "My profile",
 					Toast.LENGTH_SHORT).show()
 			}
@@ -76,4 +85,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 		return true
 	}
+
+	fun updateNavigationUserDetails(user: User) {
+		val navUserImage: CircleImageView = findViewById(R.id.iv_user_image)
+		val tvUsername: TextView = findViewById(R.id.tv_username)
+
+		Glide
+			.with(this)
+			.load(user.image)
+			.centerCrop()
+			.placeholder(R.drawable.ic_user_place_holder)
+			.into(navUserImage)
+
+		tvUsername.text = user.name
+	}
+
 }

@@ -13,7 +13,6 @@ import com.livbogdan.examenproject.R
 import com.livbogdan.examenproject.firebase.FirestoreClass
 import com.livbogdan.examenproject.models.User
 
-@Suppress("DEPRECATION")
 class SignUpActivity : BaseActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -33,7 +32,7 @@ class SignUpActivity : BaseActivity() {
 		}
 
 		toolbar.setNavigationOnClickListener {
-			onBackPressed()
+			onBackPressedDispatcher.onBackPressed()
 		}
 	}
 

@@ -26,7 +26,7 @@ class SignInActivity : BaseActivity() {
 
 	}
 
-	@Suppress("DEPRECATION")
+
 	private fun setupActionBar() {
 		val toolbar = findViewById<Toolbar>(R.id.tb_sign_in)
 		setSupportActionBar(toolbar)
@@ -38,7 +38,7 @@ class SignInActivity : BaseActivity() {
 		}
 
 		toolbar.setNavigationOnClickListener {
-			onBackPressed()
+			onBackPressedDispatcher.onBackPressed()
 		}
 
 	}
