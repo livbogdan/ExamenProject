@@ -12,13 +12,18 @@
         android:theme="@style/Theme.ExamenProject.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".activitys.MyProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
             android:name=".activitys.BaseActivity"
             android:exported="false" />
         <activity
             android:name=".activitys.SignInActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activitys.SignUpActivity"
             android:exported="true"
@@ -43,7 +48,7 @@
             android:name=".activitys.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

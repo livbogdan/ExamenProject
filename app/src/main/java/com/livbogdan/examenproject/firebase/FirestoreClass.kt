@@ -1,9 +1,12 @@
 package com.livbogdan.examenproject.firebase
 
+import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.livbogdan.examenproject.activitys.MainActivity
+import com.livbogdan.examenproject.activitys.MyProfileActivity
 import com.livbogdan.examenproject.activitys.SignInActivity
 import com.livbogdan.examenproject.activitys.SignUpActivity
 import com.livbogdan.examenproject.models.User
@@ -42,18 +45,36 @@ class FirestoreClass {
 
     }
 
-    fun signInUser(activity: SignInActivity){
+    fun loadUserData(activity: Activity){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .get()
             .addOnSuccessListener {document ->
-                val loggedInUser = document.toObject(User::class.java)
-                if (loggedInUser != null)
-                    activity.signInSuccess(loggedInUser)
+                val loggedInUser = document.toObject(User::class.java)!!
+
+                when(activity){
+                    is SignInActivity -> {
+                        activity.signInSuccess(loggedInUser)
+                    }
+                    is MainActivity -> {
+                        activity.updateNavigationUserDetails(loggedInUser)
+                    }
+                    is MyProfileActivity -> {
+                        activity.setUserDataUI(loggedInUser)
+                    }
+                }
+
             }.addOnFailureListener {
                     e->
+                when(activity){
+                    is SignInActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is MainActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
                 Log.e("signInUser", "Error writing document", e)
             }
     }
-
 }
