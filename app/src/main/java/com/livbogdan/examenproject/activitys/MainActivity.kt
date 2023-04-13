@@ -1,10 +1,13 @@
 package com.livbogdan.examenproject.activitys
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -17,6 +20,19 @@ import com.livbogdan.examenproject.models.User
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+	companion object {
+		const val MY_PROFILE_REQUEST_CODE: Int = 11
+	}
+
+	private val startMyProfileActivityForResult =
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+			if (result.resultCode == RESULT_OK) {
+				FirestoreClass().loadUserData(this)
+			} else {
+				Log.e("cancelled", "cancelled")
+			}
+		}
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -29,8 +45,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		FirestoreClass().loadUserData(this)
 	}
 
-
-	private fun setupActionBar(){
+	private fun setupActionBar() {
 		val toolbar: Toolbar = findViewById(R.id.tb_main_activity)
 		setSupportActionBar(toolbar)
 		toolbar.setNavigationIcon(R.drawable.ic_nav_menu)
@@ -40,35 +55,33 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		}
 	}
 
-	private fun toggleDrawer(){
+	private fun toggleDrawer() {
 		val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
 
-		if (drawer.isDrawerOpen(GravityCompat.START)){
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START)
-		}else{
+		} else {
 			drawer.openDrawer(GravityCompat.START)
 		}
 	}
 
-
 	override fun onBackPressed() {
 		val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
 
-		if (drawer.isDrawerOpen(GravityCompat.START)){
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START)
-		}else{
-			doubleBackToExit()
+		} else {
+			super.onBackPressed()
 		}
 	}
 
 	override fun onNavigationItemSelected(item: MenuItem): Boolean {
-		when(item.itemId) {
+		when (item.itemId) {
 			R.id.nav_my_profile -> {
-				startActivity(Intent(this, MyProfileActivity::class.java))
-				Toast.makeText(this, "My profile",
-					Toast.LENGTH_SHORT).show()
+				startMyProfileActivityForResult.launch(Intent(this, MyProfileActivity::class.java))
+				Toast.makeText(this, "My profile", Toast.LENGTH_SHORT).show()
 			}
-			R.id.nav_sign_out ->{
+			R.id.nav_sign_out -> {
 				FirebaseAuth.getInstance().signOut()
 
 				val intent = Intent(this, IntroActivity::class.java)
@@ -76,8 +89,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 				startActivity(intent)
 				finish()
 
-				Toast.makeText(this,"Sign Out",
-					Toast.LENGTH_SHORT).show()
+				Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()
 			}
 		}
 
@@ -100,5 +112,4 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 		tvUsername.text = user.name
 	}
-
 }
