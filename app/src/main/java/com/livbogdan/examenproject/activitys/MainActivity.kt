@@ -29,6 +29,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		FirestoreClass().loadUserData(this)
 	}
 
+
 	private fun setupActionBar(){
 		val toolbar: Toolbar = findViewById(R.id.tb_main_activity)
 		setSupportActionBar(toolbar)

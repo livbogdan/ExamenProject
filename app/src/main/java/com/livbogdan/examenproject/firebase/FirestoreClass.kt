@@ -2,6 +2,7 @@ package com.livbogdan.examenproject.firebase
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -43,6 +44,28 @@ class FirestoreClass {
         //return FirebaseAuth.getInstance().currentUser!!.uid
         */
 
+    }
+
+    fun updateUserProfileData(activity: MyProfileActivity,
+                              userHashMap: HashMap<String, Any>){
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserId())
+            .update(userHashMap)
+            .addOnSuccessListener {
+                Log.i(activity.javaClass.simpleName, "Profile Data Updated")
+                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                activity.profileUpdateSuccess()
+            }.addOnFailureListener {
+                e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "error while creating",
+                    e
+                )
+
+                Toast.makeText(activity, "Profile updated error!", Toast.LENGTH_SHORT).show()
+            }
     }
 
     fun loadUserData(activity: Activity){
