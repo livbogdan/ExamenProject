@@ -1,26 +1,34 @@
 <resources>
     <string name="app_name">Examen Project</string>
 
+    //Main
     <string name="image_content_description">image</string>
     <string name="lets_get_started_text">Let´s Get Started</string>
     <string name="intro_text_description">Task Planner</string>
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
 
+    //Sign Out
     <string name="sign_up_description_text">Enter your name, email id and password, to register with us.</string>
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="email">E-mail</string>
 
+    //Sign In
     <string name="sign_in_description_text">Enter your E-mail and password to log in.</string>
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
     <string name="please_wait">Please Wait&#8230;</string>
-
     <string name="nav_my_profile">My Profile</string>
     <string name="nav_sign_out">Sign Out</string>
 
+    //My Profile
     <string name="mobile">Mobile</string>
     <string name="update">UPDATE</string>
     <string name="my_profile">My Profile</string>
+
+    //Board
+    <string name="create_board_title">Create Board</string>
+    <string name="create">CREATE</string>
+    <string name="board_name">Board Name</string>
 
 </resources>

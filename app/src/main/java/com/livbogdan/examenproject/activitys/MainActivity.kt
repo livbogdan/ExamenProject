@@ -1,6 +1,6 @@
 package com.livbogdan.examenproject.activitys
 
-import android.app.Activity
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.livbogdan.examenproject.R
@@ -19,10 +20,8 @@ import com.livbogdan.examenproject.firebase.FirestoreClass
 import com.livbogdan.examenproject.models.User
 import de.hdodenhof.circleimageview.CircleImageView
 
+
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-	companion object {
-		const val MY_PROFILE_REQUEST_CODE: Int = 11
-	}
 
 	private val startMyProfileActivityForResult =
 		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -43,6 +42,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		navView.setNavigationItemSelectedListener(this)
 
 		FirestoreClass().loadUserData(this)
+
+		val fabBoard: FloatingActionButton = findViewById(R.id.fab_create_board)
+		fabBoard.setOnClickListener {
+			startActivity(Intent(this,
+				CreateBoardActivity::class.java))
+		}
+
 	}
 
 	private fun setupActionBar() {
