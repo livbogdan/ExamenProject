@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!--START-->
     <color name="colorPrimary">#AA77FF</color>
     <color name="colorSecondary">#C9EEFF</color>
@@ -17,4 +16,6 @@
     <color name="white">#FFFFFF</color>
 
     <color name="snackBarErrorColor">#F72400</color>
+
+    <color name="divider_color">#EAEAEA</color>
 </resources>

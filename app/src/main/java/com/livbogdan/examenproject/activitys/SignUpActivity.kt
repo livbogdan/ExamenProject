@@ -1,6 +1,5 @@
 package com.livbogdan.examenproject.activitys
 
-
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -21,6 +20,7 @@ class SignUpActivity : BaseActivity() {
 		signUpButton()
 	}
 
+	//Sets up the action bar for the activity, including setting the title and adding a back button.
 	private fun setupActionBar() {
 		val toolbar = findViewById<Toolbar>(R.id.tb_sign_up)
 		setSupportActionBar(toolbar)
@@ -36,6 +36,7 @@ class SignUpActivity : BaseActivity() {
 		}
 	}
 
+	//Sets up the sign up button and adds a click listener that calls the registeredUser() function when clicked.
 	private fun signUpButton(){
 		val btnSignUp: Button = findViewById(R.id.btn_sign_in)
 		btnSignUp.setOnClickListener {
@@ -43,7 +44,10 @@ class SignUpActivity : BaseActivity() {
 		}
 	}
 
-
+	//retrieves the name, email, and password entered by the user, validates the input, shows a progress dialog,
+	// and then attempts to register the user using the createUserWithEmailAndPassword() method of the FirebaseAuth object.
+	// If the registration is successful, it creates a new User object and saves it to the Firebase Firestore database using the registeredUser()
+	// function of the FirestoreClass. If the registration fails, it displays a toast with an error message.
 	private  fun registeredUser(){
 		val etName: EditText = findViewById(R.id.et_name_sign_up)
 		val etEmail: EditText = findViewById(R.id.et_email_sign_up)
@@ -75,6 +79,8 @@ class SignUpActivity : BaseActivity() {
 		}
 	}
 
+	//Checks whether the name, email, and password entered by the user are valid (i.e., not empty) and
+	// displays an error message if any field is empty.
 	private fun validForm(name: String, email: String, password: String): Boolean {
 		return when {
 			TextUtils.isEmpty(name) -> {
@@ -96,6 +102,8 @@ class SignUpActivity : BaseActivity() {
 		}
 	}
 
+	//This function is called by the FirestoreClass when the user registration is successful.
+	// It displays a toast message, hides the progress dialog, signs the user out, and finishes the activity.
 	fun userRegisterSuccess() {
 		Toast.makeText(
 			this," you have " +
