@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.livbogdan.examenproject.R
 import com.livbogdan.examenproject.firebase.FirestoreClass
 import com.livbogdan.examenproject.models.User
+import com.livbogdan.examenproject.utils.Constants
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -32,6 +33,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 			}
 		}
 
+	private lateinit var mUserName: String
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -45,12 +48,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 		val fabBoard: FloatingActionButton = findViewById(R.id.fab_create_board)
 		fabBoard.setOnClickListener {
-			startActivity(Intent(this,
-				CreateBoardActivity::class.java))
+			val intent = Intent(this,
+				CreateBoardActivity::class.java)
+			intent.putExtra(Constants.NAME, mUserName)
+			startActivity(intent)
 		}
 
 	}
 
+	// Sets up the action bar with a navigation icon and an onClickListener that toggles the navigation drawer.
 	private fun setupActionBar() {
 		val toolbar: Toolbar = findViewById(R.id.tb_main_activity)
 		setSupportActionBar(toolbar)
@@ -61,6 +67,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		}
 	}
 
+	// Toggles the navigation drawer when the navigation icon is clicked.
 	private fun toggleDrawer() {
 		val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
 
@@ -71,16 +78,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		}
 	}
 
+	// Handles the back button press by closing the navigation drawer if it is open,
+	// Otherwise it delegates to the onBackPressed method of the onBackPressedDispatcher.
 	override fun onBackPressed() {
 		val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
 
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START)
 		} else {
-			super.onBackPressed()
+			onBackPressedDispatcher.onBackPressed()
 		}
 	}
 
+	// Handles item selection in the navigation drawer.
+	// It launches a new activity to show the user's profile and signs the user out if the corresponding item is clicked.
 	override fun onNavigationItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.nav_my_profile -> {
@@ -105,7 +116,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		return true
 	}
 
+	// Updates the user details in the navigation drawer with the user's image and name.
 	fun updateNavigationUserDetails(user: User) {
+
+		mUserName = user.name
+
 		val navUserImage: CircleImageView = findViewById(R.id.iv_user_image)
 		val tvUsername: TextView = findViewById(R.id.tv_username)
 

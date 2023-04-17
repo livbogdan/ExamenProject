@@ -26,6 +26,7 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
+    //This function shows a progress dialog with the given ´text´ message.
     fun showProgressDialog(text: String){
 
         mProgressDialog = Dialog(this)
@@ -37,14 +38,19 @@ open class BaseActivity : AppCompatActivity() {
         mProgressDialog.show()
     }
 
+    //This function dismisses the progress dialog.
     fun hideProgressDialog(){
         mProgressDialog.dismiss()
     }
 
+    //This function returns the UID (User ID) of the current user signed in using Firebase Authentication.
     fun getCurrentUserID(): String{
         return FirebaseAuth.getInstance().currentUser!!.uid
     }
 
+    //This function handles the behavior of the back button being pressed twice to exit the app.
+    //It shows a toast message instructing the user to press the back button again within 2 seconds, and sets a flag to true.
+    //If the back button is pressed again within that time, the app exits. If the back button is not pressed again within that time, the flag is reset to false.
     fun doubleBackToExit(){
 
         val handler = Handler(Looper.getMainLooper())
@@ -67,6 +73,7 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
+    //This function displays a snackbar at the bottom of the screen with the given 'message' text, and sets the background color of the snackbar to red.
     fun showErrorSnackBar(message: String){
         val snackBar = Snackbar.make(findViewById(android.R.id.content),
             message, Snackbar.LENGTH_LONG)

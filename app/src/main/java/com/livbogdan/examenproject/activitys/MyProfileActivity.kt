@@ -28,9 +28,10 @@ class MyProfileActivity : BaseActivity() {
 
 
     private var mSelectedImageFileUri: Uri? = null
-    private lateinit var mUserDetails: User
-    private var mProfileImgURL: String = ""
+    private lateinit var mUserDetails: User             // Object that will store the user details.
+    private var mProfileImgURL: String = ""             // That will store the URL of the user's profile image.
 
+    // Is a permission launcher to request the READ_EXTERNAL_STORAGE permission.
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -44,6 +45,7 @@ class MyProfileActivity : BaseActivity() {
             }
         }
 
+    // Is an activity launcher to pick an image from the gallery.
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
@@ -106,6 +108,7 @@ class MyProfileActivity : BaseActivity() {
         pickImageLauncher.launch(galleryIntent)
     }
 
+    // That will be called when the user grants or denies permission for storage.
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -126,6 +129,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
+    // Set up the toolbar of the activity.
     private fun setupActionBar() {
         val toolbar: Toolbar = findViewById(R.id.tb_my_profile_activity)
         setSupportActionBar(toolbar)
@@ -141,6 +145,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
+    // Set the user details in the UI.
     fun setUserDataUI(user: User){
         val navUserImage: CircleImageView = findViewById(R.id.iv_my_profile_user_image)
         val etName: EditText = findViewById(R.id.et_name_my_profile)
@@ -163,6 +168,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
+    // Function that will update the user profile data in Firestore.
     private fun updateUserProfileData() {
         val userHashmap = HashMap<String, Any>()
         var anyChangesMade = false
@@ -190,6 +196,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
+    // Upload the user's profile image to Firebase Storage.
     private fun uploadUserImage(){
         showProgressDialog(resources.getString(R.string.please_wait))
         if (mSelectedImageFileUri != null){

@@ -27,6 +27,7 @@ class SignInActivity : BaseActivity() {
 	}
 
 
+	//sets up the action bar and back button to return to the previous activity.
 	private fun setupActionBar() {
 		val toolbar = findViewById<Toolbar>(R.id.tb_sign_in)
 		setSupportActionBar(toolbar)
@@ -43,6 +44,7 @@ class SignInActivity : BaseActivity() {
 
 	}
 
+	// The sign-in button to call the signInRegisteredUser() method when clicked.
 	private fun signInButton(){
 		val btnSignIn: Button = findViewById(R.id.btn_sign_in)
 		btnSignIn.setOnClickListener {
@@ -50,6 +52,9 @@ class SignInActivity : BaseActivity() {
 		}
 	}
 
+	// Is used to handle the result of the authentication.
+	// If the authentication is successful, it starts the MainActivity.
+	// If it fails, it shows a toast message to the user.
 	private fun signInRegisteredUser(){
 		val etEmail: EditText = findViewById(R.id.et_email_sign_in)
 		val etPassword: EditText = findViewById(R.id.et_pass_sign_in)
@@ -59,16 +64,15 @@ class SignInActivity : BaseActivity() {
 
 		if (validForm(email, password)){
 			showProgressDialog(resources.getString(R.string.please_wait))
+			//The FirebaseAuth object to authenticate the user.
 			auth.signInWithEmailAndPassword(email, password)
 				.addOnCompleteListener(this) { task ->
 					hideProgressDialog()
 					if (task.isSuccessful) {
-						// Sign in success, update UI with the signed-in user's information
 						Log.d("Sign in", "createUserWithEmail:success")
 						val user = auth.currentUser
 						startActivity(Intent(this, MainActivity::class.java))
 					} else {
-						// If sign in fails, display a message to the user.
 						Log.w("Sign In", "createUserWithEmail:failure", task.exception)
 						Toast.makeText(baseContext, "Authentication failed.",
 							Toast.LENGTH_SHORT).show()
@@ -79,6 +83,7 @@ class SignInActivity : BaseActivity() {
 		}
 	}
 
+	// Validates the user's input and returns true if the input is valid, and false otherwise.
 	private fun validForm(email: String, password: String): Boolean {
 		return when {
 			TextUtils.isEmpty(email) -> {
@@ -96,6 +101,9 @@ class SignInActivity : BaseActivity() {
 		}
 	}
 
+	// Method is not used in the code, but it's left there as an empty method.
+	// It is possible that it was intended to be called when the sign-in is successful,
+	// But it is not being used in this version of the code.
 	fun signInSuccess(user: User) {
 		hideProgressDialog()
 		startActivity(Intent(this, MainActivity::class.java))
