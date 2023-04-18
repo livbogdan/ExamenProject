@@ -5,18 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.livbogdan.examenproject.R
+import com.livbogdan.examenproject.adapters.BoardItemsAdapter
 import com.livbogdan.examenproject.firebase.FirestoreClass
+import com.livbogdan.examenproject.models.Board
 import com.livbogdan.examenproject.models.User
 import com.livbogdan.examenproject.utils.Constants
 import de.hdodenhof.circleimageview.CircleImageView
@@ -27,7 +32,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 	private val startMyProfileActivityForResult =
 		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 			if (result.resultCode == RESULT_OK) {
-				FirestoreClass().loadUserData(this)
+				FirestoreClass().loadUserData(this, true)
+			} else {
+				Log.e("cancelled", "cancelled")
+			}
+		}
+
+	private val updateBoardList =
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+			if (result.resultCode == RESULT_OK) {
+				FirestoreClass().getBoardsList(this)
 			} else {
 				Log.e("cancelled", "cancelled")
 			}
@@ -44,17 +58,18 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		val navView: NavigationView = findViewById(R.id.nav_view)
 		navView.setNavigationItemSelectedListener(this)
 
-		FirestoreClass().loadUserData(this)
+		FirestoreClass().loadUserData(this, true)
 
 		val fabBoard: FloatingActionButton = findViewById(R.id.fab_create_board)
 		fabBoard.setOnClickListener {
 			val intent = Intent(this,
 				CreateBoardActivity::class.java)
 			intent.putExtra(Constants.NAME, mUserName)
-			startActivity(intent)
+			updateBoardList.launch(intent)
 		}
 
 	}
+
 
 	// Sets up the action bar with a navigation icon and an onClickListener that toggles the navigation drawer.
 	private fun setupActionBar() {
@@ -90,8 +105,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		}
 	}
 
-	// Handles item selection in the navigation drawer.
-	// It launches a new activity to show the user's profile and signs the user out if the corresponding item is clicked.
+
 	override fun onNavigationItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.nav_my_profile -> {
@@ -116,8 +130,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 		return true
 	}
 
-	// Updates the user details in the navigation drawer with the user's image and name.
-	fun updateNavigationUserDetails(user: User) {
+	fun updateNavigationUserDetails(user: User, readBoardList: Boolean) {
 
 		mUserName = user.name
 
@@ -132,5 +145,40 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 			.into(navUserImage)
 
 		tvUsername.text = user.name
+
+		if(readBoardList){
+			showProgressDialog(resources.getString(R.string.please_wait))
+			FirestoreClass().getBoardsList(this)
+		}
+	}
+
+	fun populateBoardListToUI(boardList: ArrayList<Board>){
+		hideProgressDialog()
+		val recyclerView: RecyclerView = findViewById(R.id.rv_Board_List)
+		val textView: TextView = findViewById(R.id.tv_no_boards_available)
+
+		if (boardList.size > 0) {
+
+			recyclerView.visibility = View.VISIBLE
+			textView.visibility = View.GONE
+
+			recyclerView.layoutManager = LinearLayoutManager(this)
+			recyclerView.setHasFixedSize(true)
+
+
+			val adapter = BoardItemsAdapter(this, boardList)
+			recyclerView.adapter = adapter
+			adapter.setOnClickListener(object :
+				BoardItemsAdapter.OnClickListener {
+				override fun onClick(position: Int, model: Board) {
+					startActivity(Intent(this@MainActivity, TaskListAktivity::class.java))
+				}
+			})
+
+		} else {
+			recyclerView.visibility = View.GONE
+			textView.visibility = View.VISIBLE
+		}
+
 	}
 }

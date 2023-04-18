@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -21,7 +20,6 @@ import com.google.firebase.storage.StorageReference
 import com.livbogdan.examenproject.R
 import com.livbogdan.examenproject.firebase.FirestoreClass
 import com.livbogdan.examenproject.models.Board
-import com.livbogdan.examenproject.models.User
 import com.livbogdan.examenproject.utils.Constants
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.IOException
@@ -115,7 +113,7 @@ class CreateBoardActivity : BaseActivity() {
             boardName.text.toString(),
             mBoardImageURL,
             mUserName,
-            assignedUsersArrayList
+            assignedUsersArrayList,
         )
 
         FirestoreClass().createBoard(this, board)
@@ -156,6 +154,7 @@ class CreateBoardActivity : BaseActivity() {
 
     fun boardCreatedSuccessfully(){
         hideProgressDialog()
+        setResult(Activity.RESULT_OK)
         finish()
     }
 
