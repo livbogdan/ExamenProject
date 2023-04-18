@@ -15,11 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExamenProject.NoActionBar"
         tools:targetApi="31">
+
+        <activity
+            android:name=".activitys.TaskListAktivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".activitys.CreateBoardActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activitys.MyProfileActivity"
             android:exported="true"
