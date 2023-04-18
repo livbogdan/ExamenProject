@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.toObject
 import com.livbogdan.examenproject.activitys.*
 import com.livbogdan.examenproject.models.Board
 import com.livbogdan.examenproject.models.User
@@ -36,7 +37,7 @@ class FirestoreClass {
 
         //#region Auto Login
         // If you want remove auto login. Don't forget to fix Handler in SplashActivity
-        var currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserId = ""
         if (currentUser != null){
             currentUserId = currentUser.uid
@@ -174,5 +175,23 @@ class FirestoreClass {
         }
 
         return currentUserID
+    }
+
+    fun getBoardDetails(activity: TaskListAktivity, documentId: String) {
+        // The collection name for BOARDS
+        mFireStore.collection(Constants.BOARDS)
+            .document(documentId)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+                // Here we get the list of boards in the form of documents.
+                Log.e(activity.javaClass.simpleName, document.toString())
+                activity.boardDetails(document.toObject(Board::class.java)!!)
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
+            }
+
     }
 }
