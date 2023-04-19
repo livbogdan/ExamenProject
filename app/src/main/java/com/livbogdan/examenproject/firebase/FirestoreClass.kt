@@ -17,6 +17,7 @@ class FirestoreClass {
 
     private val mFireStore = FirebaseFirestore.getInstance()
 
+    //#region User function
     // This function is used to register a new user to the Firestore database.
     // It takes an activity object and user information as parameters.
     // It adds the user information to the Firestore database under the USERS collection.
@@ -111,6 +112,9 @@ class FirestoreClass {
             }
     }
 
+    //#endregion
+
+    //#region Board function
     fun createBoard(activity: CreateBoardActivity, board: Board) {
 
         mFireStore.collection(Constants.BOARDS)
@@ -138,7 +142,7 @@ class FirestoreClass {
         // The collection name for BOARDS
         mFireStore.collection(Constants.BOARDS)
             // A where array query as we want the list of the board in which the user is assigned. So here you can pass the current user id.
-            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID())
+            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserId())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
                 // Here we get the list of boards in the form of documents.
@@ -164,18 +168,6 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
     }
-    fun getCurrentUserID(): String {
-        // An Instance of currentUser using FirebaseAuth
-        val currentUser = FirebaseAuth.getInstance().currentUser
-
-        // A variable to assign the currentUserId if it is not null or else it will be blank.
-        var currentUserID = ""
-        if (currentUser != null) {
-            currentUserID = currentUser.uid
-        }
-
-        return currentUserID
-    }
 
     fun getBoardDetails(activity: TaskListAktivity, documentId: String) {
         // The collection name for BOARDS
@@ -184,8 +176,10 @@ class FirestoreClass {
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
                 // Here we get the list of boards in the form of documents.
-                Log.e(activity.javaClass.simpleName, document.toString())
-                activity.boardDetails(document.toObject(Board::class.java)!!)
+                Log.i(activity.javaClass.simpleName, document.toString())
+                val board = document.toObject(Board::class.java)!!
+                board.documentId = document.id
+                activity.boardDetails(board)
             }
             .addOnFailureListener { e ->
 
@@ -193,5 +187,25 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
 
+    }
+
+    //endregion
+
+    fun addUpdateTaskList(activity: TaskListAktivity, board: Board){
+        val  taskListHashMap = HashMap<String, Any>()
+        taskListHashMap[Constants.TASK_LIST] = board.taskList
+
+        mFireStore.collection(Constants.BOARDS)
+            .document(board.documentId)
+            .update(taskListHashMap)
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName, "Task List Updated.")
+
+                activity.addUpdateTaskListSuccess()
+            }.addOnFailureListener {
+                exception ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error with creation of task board.", exception)
+            }
     }
 }
