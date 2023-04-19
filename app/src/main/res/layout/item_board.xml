@@ -34,7 +34,7 @@
                 android:id="@+id/tv_board_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text_color"
+                android:textColor="@color/colorFourth"
                 android:textSize="@dimen/item_board_name_text_size"
                 tools:text="Board Name" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/tv_board_created_by"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text_color"
+                android:textColor="@color/colorSecondary"
                 android:textSize="@dimen/item_board_created_by_text_size"
                 tools:text="Created By" />
         </LinearLayout>
@@ -50,7 +50,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_board_divider_height"
+        android:layout_height="11dp"
         android:layout_marginTop="@dimen/item_board_divider_marginTop"
         android:background="@color/divider_color" />
 
