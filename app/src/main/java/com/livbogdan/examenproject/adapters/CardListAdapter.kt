@@ -6,68 +6,53 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.livbogdan.examenproject.R
-import com.livbogdan.examenproject.models.Board
+import com.livbogdan.examenproject.models.Card
 
+open class CardListAdapter (
 
-open class BoardItemsAdapter(
     private val context: Context,
-    private var list: ArrayList<Board>
+    private var list: ArrayList<Card>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.item_board,
+                R.layout.item_card,
                 parent,
                 false
             )
         )
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
         if (holder is MyViewHolder) {
 
-                Glide
-                .with(context)
-                .load(model.image)
-                .centerCrop()
-                .placeholder(R.drawable.ic_board_place_holder)
-                .into(holder.itemView.findViewById(R.id.civ_board_image))
-
-            val tvBoardName = holder.itemView.findViewById<TextView>(R.id.tv_board_name)
-            val tvBoardCreatedBy = holder.itemView.findViewById<TextView>(R.id.tv_board_created_by)
-
-            tvBoardName.text = model.name
-            tvBoardCreatedBy.text = "Created By : ${model.createdBy}"
-
-            holder.itemView.setOnClickListener {
-
-                if (onClickListener != null) {
-                    onClickListener!!.onClick(position, model)
-                }
-            }
+           holder.itemView.findViewById<TextView>(R.id.tv_card_name)
+               .text = model.name
         }
     }
+
 
     override fun getItemCount(): Int {
         return list.size
     }
 
+
     fun setOnClickListener(onClickListener: OnClickListener) {
         this.onClickListener = onClickListener
     }
 
+
     interface OnClickListener {
-        fun onClick(position: Int, model: Board)
+        fun onClick(position: Int, card: Card)
     }
 
-    private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
