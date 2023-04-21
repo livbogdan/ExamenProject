@@ -123,6 +123,7 @@ open class TaskListAdapter(
                 }
              }
 
+
             ibDeleteList.setOnClickListener {
                 alertDialogForDeleteList(position, model.title)
             }
