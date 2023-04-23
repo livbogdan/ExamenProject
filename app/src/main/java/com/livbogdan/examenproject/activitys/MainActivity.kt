@@ -38,6 +38,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 			}
 		}
 
+	private val timerActivity =
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+
+		}
+
 	private val updateBoardList =
 		registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
 			if (result.resultCode == RESULT_OK) {
@@ -121,6 +126,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 				finish()
 
 				Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()
+			}
+			R.id.nav_timer ->{
+				timerActivity.launch(Intent(this, TimerActivity::class.java))
 			}
 		}
 
