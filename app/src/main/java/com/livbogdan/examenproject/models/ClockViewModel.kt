@@ -10,29 +10,37 @@ class ClockViewModel : ViewModel() {
     private var timer: Timer? = null
     private var secondsElapsed: Long = 0
     private var savedSecondsElapsed: Long = 0
+    private var isTimerRunning = false
 
     private val _timeElapsedStateFlow = MutableStateFlow(Triple(0L, 0L, 0L))
-    val timeElapsedStateFlow: StateFlow<Triple<Long, Long, Long>> = _timeElapsedStateFlow
+    val timeElapsedStateFlow: StateFlow<Triple<Long, Long, Long>>
+        get() = _timeElapsedStateFlow
+    private fun getTimeElapsed(seconds: Long): Triple<Long, Long, Long> {
+        val hours = seconds / 3600
+        val minutes = (seconds % 3600) / 60
+        val remainingSeconds = seconds % 60
+        return Triple(hours, minutes, remainingSeconds)
+    }
 
     fun startTimer() {
-        timer = Timer()
-        timer?.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                secondsElapsed++
-                val timeElapsed = getTimeElapsed(secondsElapsed)
-                _timeElapsedStateFlow.value = timeElapsed
-            }
-        }, 0, 1000)
+        if (!isTimerRunning) {
+            timer = Timer()
+            timer?.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    secondsElapsed++
+                    val timeElapsed = getTimeElapsed(secondsElapsed)
+                    _timeElapsedStateFlow.value = timeElapsed
+                }
+            }, 0, 1000)
+            isTimerRunning = true
+        }
     }
 
     fun pauseTimer(){
-        savedSecondsElapsed = secondsElapsed
-        stopTimer()
-    }
-
-    fun continueTimer(){
-        secondsElapsed = savedSecondsElapsed
-        startTimer()
+        if (isTimerRunning) {
+            savedSecondsElapsed = secondsElapsed
+            stopTimer()
+        }
     }
 
     fun resetTimer() {
@@ -44,12 +52,7 @@ class ClockViewModel : ViewModel() {
     fun stopTimer() {
         timer?.cancel()
         timer = null
+        isTimerRunning = false
     }
 
-    private fun getTimeElapsed(seconds: Long): Triple<Long, Long, Long> {
-        val hours = seconds / 3600
-        val minutes = (seconds % 3600) / 60
-        val remainingSeconds = seconds % 60
-        return Triple(hours, minutes, remainingSeconds)
-    }
 }
