@@ -1,19 +1,18 @@
 package com.livbogdan.examenproject.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.util.Timer
 import java.util.TimerTask
 
 class ClockViewModel : ViewModel() {
     private var timer: Timer? = null
     private var secondsElapsed: Long = 0
-    private val _timeElapsedLiveData = MutableLiveData<Triple<Long, Long, Long>>()
     private var savedSecondsElapsed: Long = 0
 
-    val timeElapsedLiveData: LiveData<Triple<Long, Long, Long>>
-        get() = _timeElapsedLiveData
+    private val _timeElapsedStateFlow = MutableStateFlow(Triple(0L, 0L, 0L))
+    val timeElapsedStateFlow: StateFlow<Triple<Long, Long, Long>> = _timeElapsedStateFlow
 
     fun startTimer() {
         timer = Timer()
@@ -21,7 +20,7 @@ class ClockViewModel : ViewModel() {
             override fun run() {
                 secondsElapsed++
                 val timeElapsed = getTimeElapsed(secondsElapsed)
-                _timeElapsedLiveData.postValue(timeElapsed)
+                _timeElapsedStateFlow.value = timeElapsed
             }
         }, 0, 1000)
     }
@@ -39,15 +38,13 @@ class ClockViewModel : ViewModel() {
     fun resetTimer() {
         secondsElapsed = 0
         val timeElapsed = getTimeElapsed(secondsElapsed)
-        _timeElapsedLiveData.postValue(timeElapsed)
+        _timeElapsedStateFlow.value = timeElapsed
     }
 
     fun stopTimer() {
         timer?.cancel()
         timer = null
     }
-
-
 
     private fun getTimeElapsed(seconds: Long): Triple<Long, Long, Long> {
         val hours = seconds / 3600

@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.livbogdan.examenproject.R
 import com.livbogdan.examenproject.models.ClockViewModel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.Timer
@@ -15,9 +17,8 @@ import java.util.TimerTask
 
 class TimerActivity : AppCompatActivity() {
 
-    private  lateinit var  viewModel: ClockViewModel
+    private lateinit var viewModel: ClockViewModel
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
@@ -25,10 +26,15 @@ class TimerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[ClockViewModel::class.java]
 
         val myTextView: TextView = findViewById(R.id.textView)
-        viewModel.timeElapsedLiveData.observe(this) { timeElapsed ->
-            // Update the UI with the new number of seconds elapsed
-            //val myTextView: TextView = findViewById(R.id.textView)
-            myTextView.text = String.format("%02d:%02d:%02d", timeElapsed.first, timeElapsed.second, timeElapsed.third)
+        lifecycleScope.launch {
+            viewModel.timeElapsedStateFlow.collect { timeElapsed ->
+                // Update the UI with the new number of seconds elapsed
+                myTextView.text = String.format(
+                    "%02d:%02d:%02d",
+                    timeElapsed.first,
+                    timeElapsed.second,
+                    timeElapsed.third)
+            }
         }
 
         val pauseButton: Button = findViewById(R.id.button3)
@@ -47,10 +53,8 @@ class TimerActivity : AppCompatActivity() {
             viewModel.stopTimer()
             viewModel.resetTimer()
             myTextView.text = "00:00:00"
-
         }
     }
-
 
     //TODO Add ActionBar function
     //TODO Create start Timer Button and visual swap between. Start and continue Button
