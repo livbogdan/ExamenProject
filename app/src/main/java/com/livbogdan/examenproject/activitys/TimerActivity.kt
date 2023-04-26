@@ -109,7 +109,7 @@ class TimerActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
     }
-    
+
     override fun onDestroy() {
         super.onDestroy()
         viewModel.stopTimer()
