@@ -16,6 +16,5 @@
             android:icon="@drawable/ic_nav_sign_out"
             android:title="@string/nav_sign_out" />
 
-
     </group>
 </menu>

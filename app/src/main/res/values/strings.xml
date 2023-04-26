@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Examen Project</string>
+    <string name="app_name">Game Jam</string>
 
     //Main
     <string name="image_content_description">image</string>
     <string name="lets_get_started_text">Let´s Get Started</string>
-    <string name="intro_text_description">Task Planner</string>
+    <string name="intro_text_description">Game Jam Planner</string>
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
 
@@ -41,6 +41,8 @@
     <string name="hint_card_name">Card Name</string>
     <string name="add_list">Add List</string>
     <string name="nav_timer">Timer</string>
+
+    //Timer
     <string name="pause_button_text">Pause</string>
     <string name="resume_button_text">RESUME\n</string>
     <string name="stop_button_text">Stop timer</string>
