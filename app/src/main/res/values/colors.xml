@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--START-->
+
     <color name="colorPrimary">#AA77FF</color>
     <color name="colorSecondary">#C9EEFF</color>
     <color name="colorAccent">#97DEFF</color>
     <color name="colorFourth">#62CDFF</color>
-    <!--END-->
 
-    <!--START-->
     <color name="primary_text_color">#686A6F</color>
     <color name="secondary_text_color">#7A8089</color>
-    <!--END-->
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="snackBarErrorColor">#F72400</color>
+    <color name="snackBarErrorColor">#DD5E5E</color>
 
     <color name="divider_color">#EAEAEA</color>
 
