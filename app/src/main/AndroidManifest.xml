@@ -16,9 +16,12 @@
         android:theme="@style/Theme.ExamenProject.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".activitys.TimerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:name=".TestActivity"
             android:exported="false" />
+        <activity
+            android:name=".activitys.TimerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activitys.TaskListAktivity"
             android:exported="true"

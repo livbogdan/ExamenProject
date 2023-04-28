@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:elevation="@dimen/card_view_elevation"
+        android:layout_margin="20sp"
         app:cardCornerRadius="@dimen/card_view_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,42 +108,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_margin="10dp"
                     android:background="@drawable/shape_button_rounded"
                     android:gravity="center"
                     android:paddingTop="@dimen/btn_paddingTopBottom"
                     android:paddingBottom="@dimen/btn_paddingTopBottom"
-                    android:text="@string/sign_in"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/btn_text_size" />
+                    android:text="@string/resume_button_text"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/btn_text_size"
+                    android:textAlignment="center"/>
 
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_margin="10dp"
                     android:background="@drawable/shape_button_rounded"
                     android:gravity="center"
                     android:paddingTop="@dimen/btn_paddingTopBottom"
                     android:paddingBottom="@dimen/btn_paddingTopBottom"
-                    android:text="@string/sign_in"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/btn_text_size" />
+                    android:text="@string/stop_button_text"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/btn_text_size"
+                    android:textAlignment="center"/>
 
                 <Button
                     android:id="@+id/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_margin="10dp"
                     android:background="@drawable/shape_button_rounded"
                     android:gravity="center"
                     android:paddingTop="@dimen/btn_paddingTopBottom"
                     android:paddingBottom="@dimen/btn_paddingTopBottom"
-                    android:text="@string/sign_in"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/btn_text_size" />
+                    android:text="@string/start_button_text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/btn_text_size"
+                    android:textAlignment="center"/>
             </LinearLayout>
         </LinearLayout>
 
